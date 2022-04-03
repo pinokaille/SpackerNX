@@ -1,5 +1,6 @@
 import json
-from os import mkdir, path, rmdir
+from os import mkdir, path
+from shutil import rmtree
 from urllib.error import HTTPError
 
 from requests import get
@@ -8,7 +9,7 @@ from requests import get
 def download_latest():
     try:
         if path.exists(".cache") == True:
-            rmdir(".cache")
+            rmtree(".cache")
         elif path.exists(".cache") == False:
             mkdir(".cache")
         try:
@@ -19,5 +20,6 @@ def download_latest():
         except HTTPError:
             print(HTTPError)
 
+        rmtree(".cache")
     except Exception as err:
         print(err)
